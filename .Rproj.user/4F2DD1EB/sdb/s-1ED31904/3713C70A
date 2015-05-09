@@ -1,0 +1,18 @@
+{
+    "contents" : "## this shows you how to write roxygen comments\n\n#' First line is title\n#'\n#' This is a brief description.\n#'\n#' Anything else after the description goes to the Details section.\n#'\n#' You can write several paragraphs.\n#' @param x explanation of \\code{x}\n#' @param ... explanation of \\code{...}\n#' @return The value returned by this function.\n#' @author Who are you?\n#' @seealso \\code{\\link[tools]{file_ext}}, \\code{\\link[tools]{file_path_sans_ext}}\n#' @references \\url{https://github.com/yihui/rmini}\n#' @importFrom tools file_ext file_path_sans_ext\n#' @export\n#' @examples split_filename('foo.bar')\n#' @useDynLib BioTmR\ncrf_test <- function(test_data, model_path='model.out' , nbest = '0', cost_factor = '1', label = F){\n  if(!is.data.frame(test_data) & is.matrix(test_data)) stop('test_data must be data.fram or matrix.')\n  if(!file.exists(model_path)) stop('the model file does not exist.')\n  if(label){\n    label_data <-  test_data[,ncol(test_data)] %>% as.data.frame()\n    test_data <- test_data[, -ncol(test_data)]\n  }\n  test_path <- paste(c(tempdir(), 'test_data_', rnorm(1)), collapse = '')\n  write.table(test_data, test_path, row.names = F, na=\"\", quote = F, col.names = F)\n\n  output_path <- paste(c(tempdir(), 'crf_test_out_data_', rnorm(1)), collapse = '')\n  crf_test_(test_path, model_path, output_path, nbest, cost_factor)\n if(file.info(output_path)$size == 0) stop('error: input test data is invalid.')\n  out <- read.delim(output_path, sep = '\\t', blank.lines.skip = F, stringsAsFactors = F, header = F, na.strings = \"\")\n\n\n   if(label){\n     cbind(out,label_data)\n     }else{\n      out\n     }\n  out[which(is.na(out[,1])==T),] <- ''\n  out\n}",
+    "created" : 1431098441300.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2611326293",
+    "id" : "3713C70A",
+    "lastKnownWriteTime" : 1431098554,
+    "path" : "~/baiduyun/work/RFile/BioTmR/R/crf_test.R",
+    "project_path" : "R/crf_test.R",
+    "properties" : {
+        "tempName" : "Untitled3"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
