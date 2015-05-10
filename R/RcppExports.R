@@ -9,8 +9,8 @@ crf_test_ <- function(test_data, model, output, nbest, cost_factor) {
     .Call('BioTmR_crf_test_', PACKAGE = 'BioTmR', test_data, model, output, nbest, cost_factor)
 }
 
-genia_ <- function(file, path) {
-    .Call('BioTmR_genia_', PACKAGE = 'BioTmR', file, path)
+genia_ <- function(data, path) {
+    .Call('BioTmR_genia_', PACKAGE = 'BioTmR', data, path)
 }
 
 rcpp_hello <- function() {

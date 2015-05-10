@@ -1568,7 +1568,7 @@
                 "column" : 6,
                 "file" : "/Users/lipidong/baiduyun/work/BioNER/src/genia.cpp",
                 "kind" : 6,
-                "line" : 27,
+                "line" : 28,
                 "name" : "version",
                 "parent_name" : "",
                 "usr" : "c:@F@version#"
@@ -1577,7 +1577,7 @@
                 "column" : 3,
                 "file" : "/Users/lipidong/baiduyun/work/BioNER/src/genia.cpp",
                 "kind" : 6,
-                "line" : 35,
+                "line" : 36,
                 "name" : "resplit(const std::string &, std::string)",
                 "parent_name" : "",
                 "usr" : "c:@F@resplit#&1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#S1_#"
@@ -1586,14 +1586,14 @@
                 "column" : 17,
                 "file" : "/Users/lipidong/baiduyun/work/BioNER/src/genia.cpp",
                 "kind" : 6,
-                "line" : 65,
-                "name" : "genia_(CharacterVector, CharacterVector)",
+                "line" : 66,
+                "name" : "genia_(CharacterVector, SEXP)",
                 "parent_name" : "",
-                "usr" : "c:@F@genia_#$@N@Rcpp@C@Vector>#VI16#@N@Rcpp@CT>1#T@PreserveStorage#S0_#"
+                "usr" : "c:@F@genia_#$@N@Rcpp@C@Vector>#VI16#@N@Rcpp@CT>1#T@PreserveStorage#*$@S@SEXPREC#"
             }
         ],
         "file" : "/Users/lipidong/baiduyun/work/BioNER/src/genia.cpp",
-        "file_last_write" : 1431226382
+        "file_last_write" : 1431235628
     },
     {
         "definitions" : [

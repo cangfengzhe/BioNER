@@ -41,14 +41,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // genia_
-CharacterVector genia_(CharacterVector file, CharacterVector path);
-RcppExport SEXP BioTmR_genia_(SEXP fileSEXP, SEXP pathSEXP) {
+CharacterVector genia_(CharacterVector data, SEXP path);
+RcppExport SEXP BioTmR_genia_(SEXP dataSEXP, SEXP pathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type path(pathSEXP);
-    __result = Rcpp::wrap(genia_(file, path));
+    Rcpp::traits::input_parameter< CharacterVector >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type path(pathSEXP);
+    __result = Rcpp::wrap(genia_(data, path));
     return __result;
 END_RCPP
 }

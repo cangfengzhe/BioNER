@@ -15,6 +15,7 @@
 #include <Rcpp.h>
 #include <vector>
 #include <regex>
+
 using namespace Rcpp;
 
 using namespace std;
@@ -62,26 +63,22 @@ std::vector<std::string>
 extern void load_ne_models();
 
 // [[Rcpp::export]]
-CharacterVector genia_(CharacterVector file,CharacterVector path)
+CharacterVector genia_(CharacterVector data, SEXP path)
 {
   bool dont_tokenize = false;
+  
   //   int argc=2;
   //   char *argv[]={"abc","/Users/lipidong/Desktop/genia.txt"};
   istream *is(&cin);
-  
-  string ifilename, ofilename, wd_path;
+    
+  string  ofilename, wd_path;
  
-  ifilename= as<std::string>(file[0]);
-  wd_path = as<std::string>(path[0]);
+  
+  wd_path = as<string>(path);
   char* c_path = const_cast<char*>(wd_path.c_str());
   
   // ifilename = "/Users/lipidong/Desktop/genia.txt";
-  ifstream ifile;
-  if (ifilename != "" && ifilename != "-") {
-    ifile.open(ifilename.c_str());
-    if (!ifile) { cerr << "error: cannot open " << ifilename << endl; exit(1); }
-    is = &ifile;
-  }
+  
   
   init_morphdic();
   
@@ -115,15 +112,13 @@ CharacterVector genia_(CharacterVector file,CharacterVector path)
   
   vector<string> out;
   
-  while (getline(*is, line)) {
-    
-    // regular expression
-    //vector<string> v222 = resplit(line, "[\\.?!]\\s(?=[A-Z])");
-    
-    
-   // for (const auto & e: v222) {
-      
-      if (line.size() > 1024) {
+
+
+int num_strings = data.size();
+for( int i=0; i < num_strings; i++ ) {
+      line = string(data[i]); // lpd
+  
+          if (line.size() > 1024) {
         cerr << "warning: the sentence seems to be too long. " << n;
       }
       string postagged = bidir_postag(line, vme, vme_chunking, dont_tokenize);
