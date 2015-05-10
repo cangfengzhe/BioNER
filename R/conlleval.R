@@ -17,18 +17,19 @@
 #' @export
 #' @examples split_filename('foo.bar')
 
-conlleval <- function(x, correct_col = ncol(x) - 1, test_col = ncol(x), tag = 'B'){
+conlleval <- function(x, correct_col = ncol(x) - 1, test_col = ncol(x), B_tag = 'B', I_tag = 'I', O_tag = 'O', split = '-'){
 
   data <- check_feature(x);
   raw_data <- data[,c(1, correct_col, test_col)];
-
-  correct_out <- x_split(raw_data[, 2]) %>%
+  raw_data <- na.omit(raw_data);
+ tag <- paste(c('^', B_tag), collapse = '')
+  correct_out <- x_split(raw_data[, 2], split = split) %>%
     filter(grepl(tag, V1)) %>%
     group_by(V2) %>%
     summarise(correct_number = sum(V1)) %>%
     rename(type = V2)
 
-  test_out <- x_split(raw_data[, 3]) %>%
+  test_out <- x_split(raw_data[, 3], split = split) %>%
     filter(grepl(tag, V1)) %>%
     group_by(V2) %>%
     summarise(test_number = sum(V1)) %>%
@@ -36,8 +37,8 @@ conlleval <- function(x, correct_col = ncol(x) - 1, test_col = ncol(x), tag = 'B
 
   both_data <- raw_data[which(raw_data[, 2] == raw_data[, 3]),]
 
-  both_data <- filter(raw_data, raw_data[,2] != 'O')
-  b_index_corr <- which(grepl('^B', both_data[, 2]))
+  both_data <- filter(raw_data, raw_data[,2] != O_tag)
+  b_index_corr <- which(grepl(tag, both_data[, 2]))
 
   common_map <- sapply(1:length(b_index_corr), function(ii){
 
@@ -48,7 +49,7 @@ conlleval <- function(x, correct_col = ncol(x) - 1, test_col = ncol(x), tag = 'B
 
   common_out <- common_map  %>%
     na.omit() %>%
-    x_split() %>%
+    x_split(split = split) %>%
     group_by(V2) %>%
     summarise(common_number = sum(V1)) %>%
     rename(type = V2)

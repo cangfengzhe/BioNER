@@ -16,9 +16,13 @@
 #' @importFrom tools file_ext file_path_sans_ext
 #' @export
 #' @examples split_filename('foo.bar')
-ch_label <- function(x, pos){
-  x <- check_feature(x);
-  if(pos<2) stop('pos is the position of x.')
-  out <- x[, c(1 : (pos-1), (pos+1) : ncol(x), pos)]
-
+pos_feature <- function(data, feature = c('word_stem', 'part_of_speech', 'chunk_tags')){
+  data <- check_feature(data)
+  tmp <- paste(data[,1], collapse = ' ')
+  pos_path <- paste(c(tempdir(), 'postag_out_data_', rnorm(1)), collapse = '')
+  cat(tmp, file = pos_path)
+  tag <- genia_tagger(file = pos_path)
+  feature <- c('word', feature)
+  out <- tag[,feature]
+  out
 }

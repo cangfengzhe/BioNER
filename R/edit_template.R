@@ -16,9 +16,11 @@
 #' @importFrom tools file_ext file_path_sans_ext
 #' @export
 #' @examples split_filename('foo.bar')
-ch_label <- function(x, pos){
-  x <- check_feature(x);
-  if(pos<2) stop('pos is the position of x.')
-  out <- x[, c(1 : (pos-1), (pos+1) : ncol(x), pos)]
-
+#' 
+edit_template <- function(file){
+  template <- readLines(file)
+  new_template <- edit(template)
+  writeLines(new_template, new_template)
 }
+
+

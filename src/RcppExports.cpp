@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // crf_learn_
-int crf_learn_(CharacterVector template_data, CharacterVector train, CharacterVector model, CharacterVector freq, CharacterVector max_iterations, CharacterVector cost, CharacterVector eta, CharacterVector algorithm, CharacterVector shrinking_size);
-RcppExport SEXP BioTmR_crf_learn_(SEXP template_dataSEXP, SEXP trainSEXP, SEXP modelSEXP, SEXP freqSEXP, SEXP max_iterationsSEXP, SEXP costSEXP, SEXP etaSEXP, SEXP algorithmSEXP, SEXP shrinking_sizeSEXP) {
+int crf_learn_(CharacterVector template_data, CharacterVector train, CharacterVector model, CharacterVector freq, CharacterVector max_iterations, CharacterVector cost, CharacterVector eta, CharacterVector algorithm, CharacterVector shrinking_size, CharacterVector thread);
+RcppExport SEXP BioTmR_crf_learn_(SEXP template_dataSEXP, SEXP trainSEXP, SEXP modelSEXP, SEXP freqSEXP, SEXP max_iterationsSEXP, SEXP costSEXP, SEXP etaSEXP, SEXP algorithmSEXP, SEXP shrinking_sizeSEXP, SEXP threadSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -20,7 +20,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< CharacterVector >::type eta(etaSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type algorithm(algorithmSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type shrinking_size(shrinking_sizeSEXP);
-    __result = Rcpp::wrap(crf_learn_(template_data, train, model, freq, max_iterations, cost, eta, algorithm, shrinking_size));
+    Rcpp::traits::input_parameter< CharacterVector >::type thread(threadSEXP);
+    __result = Rcpp::wrap(crf_learn_(template_data, train, model, freq, max_iterations, cost, eta, algorithm, shrinking_size, thread));
     return __result;
 END_RCPP
 }
@@ -40,13 +41,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // genia_
-CharacterVector genia_(CharacterVector file);
-RcppExport SEXP BioTmR_genia_(SEXP fileSEXP) {
+CharacterVector genia_(CharacterVector file, CharacterVector path);
+RcppExport SEXP BioTmR_genia_(SEXP fileSEXP, SEXP pathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type file(fileSEXP);
-    __result = Rcpp::wrap(genia_(file));
+    Rcpp::traits::input_parameter< CharacterVector >::type path(pathSEXP);
+    __result = Rcpp::wrap(genia_(file, path));
     return __result;
 END_RCPP
 }
@@ -61,13 +63,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // test
-SEXP test(CharacterVector xs);
-RcppExport SEXP BioTmR_test(SEXP xsSEXP) {
+int test();
+RcppExport SEXP BioTmR_test() {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type xs(xsSEXP);
-    __result = Rcpp::wrap(test(xs));
+    __result = Rcpp::wrap(test());
     return __result;
 END_RCPP
 }

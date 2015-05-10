@@ -17,13 +17,21 @@
 #' @export
 #' @examples split_filename('foo.bar')
 #' @useDynLib BioTmR
-genia_tagger <- function(file="/Users/lipidong/Desktop/genia.txt",named_entity=T){
-  if(missing(file)) stop('please input file name.')
+genia_tagger <- function(file="/Users/lipidong/Desktop/genia.txt",named_entity = F){
+  
   if(!file.exists(file)) stop('the file does not exist.')
+  tag_path <- paste(c(tempdir(), 'tag_data_', rnorm(1)), collapse = '')
+  txt <- readr::read_lines(file) 
+  txt <- paste(txt, collapse = ' ') 
+  txt <- gsub('(?<=[?!\\.])\\s+(?=[A-Z])', '\\\n', txt, perl = T)
+  cat(txt, file = tag_path)
+  
+  
   tryCatch({
-    raw_txt <- genia_(file)
+    path = getwd();
+    raw_txt <- genia_(tag_path, path)
   }, error=function(e){
-        e
+        stop('your data is invalid.')
   })
 
   out <- strsplit(raw_txt, '\\n') %>%
